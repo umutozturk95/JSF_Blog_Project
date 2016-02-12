@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Kullanıcı İşlemleri</title>
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <div id="baslik">
+                BLOG SİTESİ
+            </div>
+            <div id="aciklama">
+                Hoş geldiniz #{KullaniciBean.kullaniciAdi}" sistemden çıkmak için
+                <h:commandLink style="color: white;"
+                  value="tıklayınız."
+                  action="#{KullaniciBean.cikis}"/>
+            </div>
+            <div id="menu">
+              <ul id="nav">
+                    <li>
+                        <h:commandLink
+                          rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                          value="Bloglarımı Getir"
+                          action="#{KullaniciBean.kullanicininBloglariniListele}" />
+                    </li>
+                    <li>
+                        <h:commandLink 
+                          value="Tüm Blogları Listele"
+                          action="#{KullaniciBean.tumBloglariListele}" />
+                    </li>
+                    <li>
+                        <h:commandLink
+                          rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                          value="Yeni Blog Oluştur"
+                          action="#{KullaniciBean.yeniBlog}" />
+                    </li>
+                </ul>
+            </div>
+            <div id="giris">
+                <br/>
+                <h:dataTable
+                    width="94%" value="#{KullaniciBean.blogListesi}"
+                    rendered="#{KullaniciBean.blogListesi ne null}"
+                    var="blog" styleClass="bloglar" headerClass="tableHead">
+                    <f:facet name="header">
+                        Blog Listesi
+                    </f:facet>
+                    <h:column headerClass="colHead">
+                        <f:facet name="header">
+                            Blog başlığı
+                        </f:facet>
+                        <h:outputText value="#{blog.blogBaslik}"/>
+                    </h:column>
+                    <h:column headerClass="colHead">
+                        <f:facet name="header">
+                            Açıklama
+                        </f:facet>
+                        <h:outputText value="#{blog.blogOzetAciklama}"/>
+                    </h:column>
+                    <h:column headerClass="colHead">
+                        <f:facet name="header">
+                            İşlemler
+                        </f:facet>
+                        <h:commandLink 
+                          value="Bloğa Git"
+                          action="#{KullaniciBean.blogaGit(blog)}"/>|
+                        <h:commandLink
+                          value="Tüm Girdilerini Getir"
+                          action="#{KullaniciBean.tumGirdileriGetir(blog.blogID)}"/>|
+                        <h:commandLink value="Bloğu Sil"
+                          action="#{KullaniciBean.bloguSil(blog)}"
+                          onclick="return confirm('Blog ile ilgili bütn verileri silmek istediğinizden emin misiniz? ')"/>
+                    </h:column>
+                </h:dataTable>
+                <h:outputText
+                 rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi
+                             and KullaniciBean.kullanicininBlogSayisi == 0}"
+                 style="font-size: 20px; font-weight: bold"
+                 value="Kullanıcıya ait herhangi bir blog bulunamadı.
+                 Yeni bir blog oluşturabilmek için BLOG EKLE
+                 butonuna tıklayınız"/>
+                <br/>
+                <h:commandButton rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                  value="Yeni Blog Oluştur" action="#{KullaniciBean.yeniBlog}"
+                  style="font-weight: bold;color: red"/>
+            </div>
+            <div id="footer"> 
+                Copyright @www.kodlab.com
+            </div>
+        </h:form>
+    </h:body>
+</html>

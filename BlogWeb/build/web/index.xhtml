@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Giriş Sayfası</title>
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <div id="baslik">
+            BLOG SİTESİ
+        </div>
+        <div id="aciklama">
+            <h:outputText rendered="#{KullaniciBean.kullaniciBilgisi eq null}"
+                          value="(Sitemize Hoşgeldiniz)"/>
+
+            <h:form>
+                <h:outputText  rendered="#{KullaniciBean.kullaniciBilgisi ne null}"
+                               value ="Hoş geldiniz #{KullaniciBean.kullaniciAdi}
+                               sistemden çıkmak için"/>
+                <h:commandLink  rendered="#{KullaniciBean.kullaniciBilgisi ne null}"
+                                style="color: white;"
+                                value="tıklayınız." action="#{KullaniciBean.cikis}"/>
+            </h:form>
+        </div>
+        <div id="giris">
+            <h:form id="girisFormu">
+                <h:panelGrid columns="2">
+                    <h:outputText style="font-weight: bold;" value="Kullanıcı Adı:"/>
+                    <h:inputText style="font-weight: bold; color: #444444;"
+                                 value="#{KullaniciBean.kullaniciAdi}" required="true"
+                                 requiredMessage="Kullanıcı adı alanı boş olamaz!"/>
+                    <h:outputText style="font-weight: bold;" value="Şifre:"/>
+                    <h:inputSecret style="font-weight: bold; color: #444444;"
+                                   value="#{KullaniciBean.sifre}"
+                                   required="true"
+                                   requiredMessage="Şifre alanı boş olamaz!"/>
+                    <h:outputText value=""/>
+                    <h:commandButton style="font-weight: bold; color:red;" value="Giriş Yap" action="#{KullaniciBean.girisYap}"/>
+                    <f:facet name="footer">
+                        <h:messages/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </div>
+        <div id="footer"> Copyright @www.kodlab.com</div>
+    </h:body>
+</html>

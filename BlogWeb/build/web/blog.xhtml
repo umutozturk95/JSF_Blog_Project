@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Blog Sitesi</title>
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <div id="baslik">
+                #{KullaniciBean.seciliBlog.blogBaslik}
+            </div>
+            <div id="aciklama">
+                Hoş geldiniz #{KullaniciBean.kullaniciAdi}" sistemden çıkmak için
+                <h:commandLink style="color: white;"
+                               value="tıklayınız." action="#{KullaniciBean.cikis}"/>
+            </div>
+            <div id="menu">
+                <ul id="nav">
+                    <li><a href="kullanici.xhtml">Kullanıcı Bilgileri</a></li>
+                    <li>
+                        <h:commandLink
+                         rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                         action="#{KullaniciBean.yeniGirdi}" value="Yeni Girdi"/>
+                    </li>
+                    <li>
+                        <h:commandLink
+                          action="#{KullaniciBean.tumGirdileriGetir}"
+                          value="Tum Girdileri Getir"/>
+                    </li>
+                    <li>
+                        <h:commandLink rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                          value="Girdi Düzenle"
+                          action="#{KullaniciBean.girdiDuzenleSayfasi(KullaniciBean.seciliGiridi)}"/>
+                    </li>
+                    <li>
+                        <h:commandLink value="Bloğu Sil" 
+                          action="#{KullaniciBean.bloguSil(KullaniciBean.seciliBlog)}"
+                          onclick="return confirm('Bloğu silmek istediğinizden emin misiniz? ')"/>
+                    </li>
+                </ul>
+            </div>
+            <div id="sol">
+                <h:outputText style="font-size: 13px;  font-weight: bold;"
+                              value="En güncel 5 girdi"/>
+                <hr/>
+                <br/>
+                <ui:repeat value="#{KullaniciBean.enGuncelBesGirdi}" var="girdi">
+                    <h:commandLink value="(*) #{girdi.girdiBaslik}"
+                      action="#{KullaniciBean.girdiyeGit(girdi)}" />
+                    <br/>
+                    <br/>
+                </ui:repeat>
+            </div>
+
+            <div id="icerik">
+                <hr/>
+                <h:outputText style="font-weight: bold;font-size: 30px"
+                  rendered="#{KullaniciBean.seciliGiridi != null}"
+                  value="#{KullaniciBean.seciliGiridi.girdiBaslik}"/>
+                <hr/>
+                <br/>
+                <h:outputText escape="true"
+                  rendered ="#{KullaniciBean.seciliGiridi != null}"
+                  value ="#{KullaniciBean.seciliGiridi.girdiIcerik}"/>
+
+                <br/>
+                <br/>
+                <hr/>
+                <h:outputText
+                  style="font-style: italic; font-size: 20px; font-weight: bold;"
+                  rendered="#{KullaniciBean.seciliGiridi.yorumSayisi == 0}"
+                  value="Bu girdi için yorum yapılmamış"/>
+                <h:outputText
+                  rendered="#{KullaniciBean.seciliGiridi.yorumSayisi gt 0}"
+                  value="Yorumlar(#{KullaniciBean.seciliGiridi.yorumSayisi})"
+                  style="font-size: 20px; font-weight: bold;"/>
+                <h:commandLink
+                  rendered="#{KullaniciBean.seciliGiridi.yorumSayisi gt 3}"
+                  value="Tüm Yorumları Gör"
+                  action="#{KullaniciBean.tumYorumlariListele}"/>
+                <h:outputText
+                  style="font-style: italic"
+                  rendered="#{KullaniciBean.seciliGiridi.yorumSayisi == 0}"
+                  value="(Toplam #{KullaniciBean.seciliGiridi.yorumSayisi} yorum)"/>
+                <br/>
+                <hr/>
+                <ui:repeat value="#{KullaniciBean.seciliGiridi.yorumlar}" var="yorum">
+                    <h:outputText style="font-weight: bold; font-size: 12px;" value="#{yorum.yorumBaslik}"/>
+                    <br/>
+                    <br/>
+                    <h:outputText value="#{yorum.yorumIcerik}"/>
+                    <h:panelGrid columns="7">
+                        <h:outputText style="font-weight: bold" value="Gönderen:"/>
+                        <h:outputText value="#{yorum.kullanici.kullaniciEmail} |"/>
+                        <h:outputText style="font-weight: bold" value=" Tarih:"/>
+                        <h:outputText value="#{yorum.tarihZaman} |"/>
+                        <h:commandLink value="Yorumu Duzenle"
+                          rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                          action="#{KullaniciBean.yorumDuzenleSayfasi(yorum)}"/>
+                        |
+                        <h:commandLink value="Yorumu Sil"
+                          rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                          action="#{KullaniciBean.yorumSil(yorum)}"/>
+                    </h:panelGrid>
+                    <hr/>
+                </ui:repeat>
+                <h:commandLink value="Yorum Yap"
+                  action="#{KullaniciBean.yorumDuzenleSayfasi}"/>
+            </div>
+            <div id="footer"> Copyright @www.kodlab.com</div>
+        </h:form>
+    </h:body>
+</html>

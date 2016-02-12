@@ -1,0 +1,76 @@
+body {
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 0px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+a:link, a:visited {
+    color:  #BA475E;
+    font-weight : bold;
+    text-decoration: none;
+
+}
+
+a:link:hover, a:visited:hover  {
+    color: red;
+    font-weight : bold;
+    text-decoration: underline;
+}
+
+table.bloglar
+{
+    text-align: center;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif ;
+    font-weight: normal;
+    font-size: 11px;
+    color: #fff;
+    background-color: #666;
+    border-collapse: collapse;
+    border: 1px black solid;
+}
+
+table.bloglar td
+{
+    background-color: #CCC;
+    color: #000;
+    padding: 4px;
+    text-align: left;
+    border: 1px black solid;
+
+}
+
+.tableHead
+{
+    background-color: #555;
+    color: white;
+    padding: 4px;
+    font-size: 20px;
+    text-align: center;
+}
+.colHead
+{
+    background-color: #666;
+    color: white;
+    padding: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+
+
+
+

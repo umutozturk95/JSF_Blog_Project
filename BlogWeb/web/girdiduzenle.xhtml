@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Kullanıcı İşlemleri</title>
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <div id="baslik">
+              #{KullaniciBean.seciliBlog.blogBaslik}
+            </div>
+            <div id="aciklama">
+                Hoş geldiniz #{KullaniciBean.kullaniciAdi}" sistemden çıkmak için
+                <h:commandLink style="color: white;"
+                               value="tıklayınız." action="#{KullaniciBean.cikis}"/>
+            </div>
+            <div id="menu">
+                <ul id="nav">
+                    <li>
+                        <h:commandLink
+                            rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                            value="Bloglarımı Getir"
+                            action="#{KullaniciBean.kullanicininBloglariniListele}" />
+                    </li>
+                    <li>
+                        <h:commandLink 
+                            value="Tüm Blogları Listele"
+                            action="#{KullaniciBean.tumBloglariListele}" />
+                    </li>
+                    <li>
+                     <h:commandLink
+                            rendered="#{KullaniciBean.kullaniciBlogSahibiVeyaAdminMi}"
+                            value="Yeni Blog Oluştur"
+                            action="#{KullaniciBean.yeniBlog}" />
+                    </li>
+                </ul>
+            </div>
+            <div id="giris">
+                <br/>
+                <h:panelGrid columns="2">
+                    <h:outputText style="font-weight: bold;"  value="Girdi başlığı:"/>
+                    <h:inputText value="#{KullaniciBean.girdiBaslik}" style="width: 780px;" />
+                </h:panelGrid>
+                <br/>
+                <h:panelGrid columns="2">
+                    <h:outputText style="font-weight: bold;"  value="Girdi içerik:"/>
+                    <p:editor value="#{KullaniciBean.girdiIcerik}"  width="800px" height="250px"/>
+                </h:panelGrid>
+                <h:commandButton style="width: 90px; font-weight: bold;"
+                   rendered="#{KullaniciBean.girdiBaslik.length() eq 0}"
+                   action="#{KullaniciBean.girdiEkle}" value="Ekle"/>
+                <h:commandButton style="width: 90px; font-weight: bold;"
+                   rendered="#{KullaniciBean.girdiBaslik.length() > 0}"
+                   action="#{KullaniciBean.girdiDuzenle}" value="Düzenle"/>
+                <h:commandButton style="width: 90px; font-weight: bold;"
+                   rendered="#{KullaniciBean.girdiBaslik.length() > 0}"
+                   action="#{KullaniciBean.girdiSil}" value="Sil"/>
+            </div>
+            <div id="footer"> Copyright @www.kodlab.com</div>
+        </h:form>
+    </h:body>
+</html>
